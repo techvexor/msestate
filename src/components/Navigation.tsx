@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const navItems = [
   { label: "Properties", href: "#properties" },
@@ -63,8 +64,22 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* Search Box & CTA Button */}
           <div className="hidden md:flex items-center gap-4">
+            <div className="relative">
+              <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${
+                isScrolled ? "text-navy/50" : "text-cream/50"
+              }`} />
+              <Input
+                type="search"
+                placeholder="Search properties..."
+                className={`pl-10 w-64 transition-all duration-300 ${
+                  isScrolled
+                    ? "bg-white border-navy/20 text-navy placeholder:text-navy/50"
+                    : "bg-white/10 backdrop-blur-sm border-cream/30 text-cream placeholder:text-cream/70"
+                }`}
+              />
+            </div>
             <Button
               size="lg"
               className={`transition-all duration-300 ${

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Search, MapPin, Home, DollarSign } from "lucide-react";
+import { Search, MapPin, Home, IndianRupee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -62,7 +62,7 @@ export default function SearchBar() {
           {/* Budget Range */}
           <div className="space-y-2 lg:col-span-2">
             <label className="text-sm font-semibold text-navy flex items-center gap-2">
-              <DollarSign className="w-4 h-4 text-gold" />
+              <IndianRupee className="w-4 h-4 text-gold" />
               Budget Range: ₹{budget[0]}L - ₹{budget[0] * 2}L
             </label>
             <Slider
