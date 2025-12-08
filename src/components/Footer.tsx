@@ -75,7 +75,7 @@ export default function Footer() {
                   <div>
                     <p className="text-cream font-semibold mb-1">Head Office</p>
                     <p className="text-cream/70">
-                      Sector 18, Noida, Uttar Pradesh 201301
+                      Sector 90, Noida, Uttar Pradesh 201301, IN
                     </p>
                   </div>
                 </div>
@@ -83,7 +83,7 @@ export default function Footer() {
                   <Phone className="w-5 h-5 text-gold mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-cream font-semibold mb-1">Phone</p>
-                    <p className="text-cream/70">+91 98765 43210</p>
+                    <p className="text-cream/70">+91 9999091927</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
