@@ -75,6 +75,11 @@
   body {
     @apply bg-cream text-navy font-body;
   }
+  button {
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
 }
 
 @layer utilities {

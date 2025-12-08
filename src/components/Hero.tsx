@@ -87,16 +87,18 @@ export default function Hero() {
       <button
         onClick={goToPrevious}
         type="button"
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-100 active:bg-white/10"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-100 appearance-none"
         aria-label="Previous slide"
+        style={{ WebkitAppearance: 'none', WebkitTapHighlightColor: 'transparent' }}
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={goToNext}
         type="button"
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-100 active:bg-white/10"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-100 appearance-none"
         aria-label="Next slide"
+        style={{ WebkitAppearance: 'none', WebkitTapHighlightColor: 'transparent' }}
       >
         <ChevronRight className="w-6 h-6" />
       </button>
