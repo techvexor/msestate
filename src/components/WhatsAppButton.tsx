@@ -4,7 +4,7 @@ import { MessageCircle } from "lucide-react";
 export default function WhatsAppButton() {
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent("Hi, I'm interested in MS Estate properties. Can you share more details?");
-    window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
+    window.open(`https://wa.me/919999091927?text=${message}`, "_blank");
   };
 
   return (
