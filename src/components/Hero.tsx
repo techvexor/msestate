@@ -75,9 +75,10 @@ export default function Hero() {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-95 ${
               index === currentIndex ? "bg-gold w-8" : "bg-cream/40 hover:bg-cream/60"
             }`}
+            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
@@ -86,7 +87,7 @@ export default function Hero() {
       <button
         onClick={goToPrevious}
         type="button"
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-100 active:bg-white/10"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-6 h-6" />
@@ -94,7 +95,7 @@ export default function Hero() {
       <button
         onClick={goToNext}
         type="button"
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-cream hover:bg-white/20 hover:text-gold transition-all duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 active:scale-100 active:bg-white/10"
         aria-label="Next slide"
       >
         <ChevronRight className="w-6 h-6" />
