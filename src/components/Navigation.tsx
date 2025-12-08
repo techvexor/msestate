@@ -3,17 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
 
 const navItems = [
-  { label: "Properties", href: "#properties" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Properties", href: "/properties" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +40,7 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
               <span className="font-display font-bold text-navy text-xl">MS</span>
             </div>
@@ -47,20 +49,20 @@ export default function Navigation() {
             }`}>
               MS Estate
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 className={`font-semibold transition-colors hover:text-gold ${
                   isScrolled ? "text-navy" : "text-cream"
                 }`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -82,6 +84,7 @@ export default function Navigation() {
             </div>
             <Button
               size="lg"
+              onClick={() => navigate("/contact")}
               className={`transition-all duration-300 ${
                 isScrolled
                   ? "bg-navy hover:bg-navy-light text-cream"
@@ -117,24 +120,34 @@ export default function Navigation() {
           >
             <div className="flex flex-col items-center justify-center h-full gap-8 p-6">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={item.label}
-                  href={item.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-display text-3xl font-semibold text-navy hover:text-gold transition-colors"
                 >
-                  {item.label}
-                </motion.a>
+                  <Link
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="font-display text-3xl font-semibold text-navy hover:text-gold transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <Button size="lg" className="bg-navy hover:bg-navy-light text-cream">
+                <Button 
+                  size="lg" 
+                  className="bg-navy hover:bg-navy-light text-cream"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    navigate("/contact");
+                  }}
+                >
                   <Phone className="w-4 h-4 mr-2" />
                   Contact Us
                 </Button>
