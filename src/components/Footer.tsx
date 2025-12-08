@@ -90,7 +90,7 @@ export default function Footer() {
                   <Mail className="w-5 h-5 text-gold mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-cream font-semibold mb-1">Email</p>
-                    <p className="text-cream/70">info@msestate.com</p>
+                    <p className="text-cream/70">info@msestate.in</p>
                   </div>
                 </div>
               </div>
