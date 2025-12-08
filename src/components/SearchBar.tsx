@@ -7,7 +7,24 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Slider } from "@/components/ui/slider";
 
 export default function SearchBar() {
+  const [location, setLocation] = useState("");
+  const [propertyType, setPropertyType] = useState("");
   const [budget, setBudget] = useState([50]);
+
+  const handleSearch = () => {
+    const searchParams = {
+      location,
+      propertyType,
+      budgetMin: budget[0],
+      budgetMax: budget[0] * 2
+    };
+    
+    console.log("Search Parameters:", searchParams);
+    
+    // You can add your search logic here
+    // For example: navigate to results page or filter properties
+    alert(`Searching for:\nLocation: ${location || 'Any'}\nProperty Type: ${propertyType || 'Any'}\nBudget: ₹${budget[0]}L - ₹${budget[0] * 2}L`);
+  };
 
   return (
     <motion.div
@@ -25,7 +42,7 @@ export default function SearchBar() {
               <MapPin className="w-4 h-4 text-gold" />
               Location
             </label>
-            <Select>
+            <Select value={location} onValueChange={setLocation}>
               <SelectTrigger className="bg-white border-navy/20">
                 <SelectValue placeholder="Select location" />
               </SelectTrigger>
@@ -45,7 +62,7 @@ export default function SearchBar() {
               <Home className="w-4 h-4 text-gold" />
               Property Type
             </label>
-            <Select>
+            <Select value={propertyType} onValueChange={setPropertyType}>
               <SelectTrigger className="bg-white border-navy/20">
                 <SelectValue placeholder="Select type" />
               </SelectTrigger>
@@ -78,6 +95,7 @@ export default function SearchBar() {
 
         <Button
           size="lg"
+          onClick={handleSearch}
           className="w-full bg-navy hover:bg-navy-light text-cream font-semibold transition-all duration-300 hover:scale-[1.02]"
         >
           <Search className="w-5 h-5 mr-2" />

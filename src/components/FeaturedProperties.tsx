@@ -8,51 +8,60 @@ const properties = [
     id: 1,
     name: "Skyline Residences",
     location: "Sector 150, Noida",
-    price: "₹1.2 Cr",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    price: 12000000,
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=90",
     beds: 3,
     baths: 3,
     area: "1850 sq.ft",
-    rera: "UPRERAPRJ15690",
+
     featured: true,
   },
   {
     id: 2,
     name: "Green Valley Villas",
     location: "Greater Noida West",
-    price: "₹2.5 Cr",
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
+    price: 25000000,
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=90",
     beds: 4,
     baths: 4,
     area: "3200 sq.ft",
-    rera: "UPRERAPRJ16892",
+
     featured: false,
   },
   {
     id: 3,
     name: "Urban Heights",
     location: "Sector 137, Noida",
-    price: "₹95 Lac",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+    price: 9500000,
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=90",
     beds: 2,
     baths: 2,
     area: "1200 sq.ft",
-    rera: "UPRERAPRJ14523",
+
     featured: false,
   },
   {
     id: 4,
     name: "Prestige Towers",
     location: "Sector 62, Noida",
-    price: "₹1.8 Cr",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+    price: 18000000,
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90",
     beds: 3,
     baths: 3,
     area: "2100 sq.ft",
-    rera: "UPRERAPRJ17234",
+
     featured: false,
   },
 ];
+
+const formatPrice = (price: number): string => {
+  if (price >= 10000000) {
+    return `₹${(price / 10000000).toFixed(1)} Cr`;
+  } else if (price >= 100000) {
+    return `₹${(price / 100000).toFixed(0)} Lac`;
+  }
+  return `₹${price.toLocaleString('en-IN')}`;
+};
 
 export default function FeaturedProperties() {
   return (
@@ -65,15 +74,15 @@ export default function FeaturedProperties() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-navy mb-4">
+          <h2 className="font-serif text-4xl md:text-6xl font-bold text-navy mb-6 tracking-tight">
             Featured Properties
           </h2>
-          <p className="text-lg text-navy/70 max-w-2xl mx-auto">
+          <p className="text-xl text-navy/70 max-w-2xl mx-auto font-light leading-relaxed">
             Handpicked premium properties that define luxury living in NCR
           </p>
         </motion.div>
 
-        {/* Asymmetric Bento Grid */}
+        {/* Property Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {properties.map((property, index) => (
             <motion.div
@@ -82,12 +91,10 @@ export default function FeaturedProperties() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 ${
-                property.featured ? "lg:col-span-2 lg:row-span-2" : ""
-              }`}
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
             >
               {/* Image */}
-              <div className={`relative overflow-hidden ${property.featured ? "h-96" : "h-64"}`}>
+              <div className="relative overflow-hidden h-64">
                 <img
                   src={property.image}
                   alt={property.name}
@@ -106,41 +113,47 @@ export default function FeaturedProperties() {
                   </Button>
                 </div>
 
-                {/* RERA Badge */}
-                <Badge className="absolute top-4 right-4 bg-gold text-navy font-mono text-xs">
-                  {property.rera}
-                </Badge>
+
+
+                {/* Featured Badge */}
+                {property.featured && (
+                  <Badge className="absolute top-4 left-4 bg-navy text-cream font-semibold text-xs">
+                    Featured
+                  </Badge>
+                )}
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="font-display text-2xl font-semibold text-navy mb-2">
+                <h3 className="font-serif text-2xl font-bold text-navy mb-2 tracking-tight">
                   {property.name}
                 </h3>
                 <div className="flex items-center text-navy/60 mb-4">
-                  <MapPin className="w-4 h-4 mr-1" />
-                  <span className="text-sm">{property.location}</span>
+                  <MapPin className="w-4 h-4 mr-1 text-gold" />
+                  <span className="text-sm font-medium">{property.location}</span>
                 </div>
 
                 {/* Specs */}
-                <div className="flex items-center gap-4 mb-4 text-sm text-navy/70">
+                <div className="flex items-center gap-4 mb-4 text-sm text-navy/70 font-medium">
                   <div className="flex items-center gap-1">
-                    <Bed className="w-4 h-4" />
+                    <Bed className="w-4 h-4 text-navy/50" />
                     <span>{property.beds} Beds</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Bath className="w-4 h-4" />
+                    <Bath className="w-4 h-4 text-navy/50" />
                     <span>{property.baths} Baths</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Maximize className="w-4 h-4" />
+                    <Maximize className="w-4 h-4 text-navy/50" />
                     <span>{property.area}</span>
                   </div>
                 </div>
 
                 {/* Price */}
-                <div className="font-mono text-2xl font-semibold text-gold">
-                  {property.price}
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl font-bold text-gold tracking-tight">
+                    {formatPrice(property.price)}
+                  </span>
                 </div>
               </div>
             </motion.div>
