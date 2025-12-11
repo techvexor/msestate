@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, Twitter } from "luc
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -102,24 +103,24 @@ export default function Footer() {
                 Quick Links
               </h3>
               <div className="grid grid-cols-2 gap-4">
-                <a href="#" className="text-cream/70 hover:text-gold transition-colors">
+                <Link to="/about" className="text-cream/70 hover:text-gold transition-colors">
                   About Us
-                </a>
-                <a href="#" className="text-cream/70 hover:text-gold transition-colors">
+                </Link>
+                <Link to="/properties" className="text-cream/70 hover:text-gold transition-colors">
                   Properties
-                </a>
-                <a href="#" className="text-cream/70 hover:text-gold transition-colors">
+                </Link>
+                <Link to="/services" className="text-cream/70 hover:text-gold transition-colors">
                   Services
-                </a>
+                </Link>
                 <a href="#" className="text-cream/70 hover:text-gold transition-colors">
                   Blog
                 </a>
                 <a href="#" className="text-cream/70 hover:text-gold transition-colors">
                   Careers
                 </a>
-                <a href="#" className="text-cream/70 hover:text-gold transition-colors">
+                <Link to="/contact" className="text-cream/70 hover:text-gold transition-colors">
                   Contact
-                </a>
+                </Link>
               </div>
             </div>
 
