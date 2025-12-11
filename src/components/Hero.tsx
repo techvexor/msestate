@@ -54,21 +54,16 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="absolute inset-0"
+          className="absolute inset-0 z-0"
         >
-          {/* Enhanced Dark Blue Color Grading Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050d16]/90 via-[#0A1828]/50 to-[#071422]/95 z-10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f2540]/80 via-transparent to-[#0f2540]/80 z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,rgba(5,13,22,0.7)_70%)] z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(26,58,92,0.4)_0%,transparent_50%)] z-10" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,169,110,0.08)_0%,transparent_40%)] z-10" />
-          {/* Subtle blue tint overlay */}
-          <div className="absolute inset-0 bg-[#1a3a5c]/20 mix-blend-color z-10" />
-          <img
-            src={heroImages[currentIndex].url}
-            alt={heroImages[currentIndex].alt}
-            className="w-full h-full object-cover filter saturate-[0.85] brightness-[0.9]"
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{ 
+              backgroundImage: `url(${heroImages[currentIndex].url})`
+            }}
           />
+          {/* Light overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/30 z-10" />
         </motion.div>
       </AnimatePresence>
 
