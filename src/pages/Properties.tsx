@@ -3,10 +3,13 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { motion } from "framer-motion";
-import { MapPin, Bed, Bath, Maximize, ArrowRight, Building2, Home, Calendar, CheckCircle2 } from "lucide-react";
+import { MapPin, Bed, Bath, Maximize, ArrowRight, Building2, Home, Calendar, CheckCircle2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 
 const properties = [
@@ -159,10 +162,31 @@ const formatPrice = (price: number): string => {
 export default function Properties() {
   const [selectedType, setSelectedType] = useState("all");
   const [selectedProperty, setSelectedProperty] = useState<typeof properties[0] | null>(null);
+  const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+  const [enquiryProperty, setEnquiryProperty] = useState<typeof properties[0] | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
 
   const filteredProperties = selectedType === "all" 
     ? properties 
     : properties.filter(p => p.type.toLowerCase() === selectedType);
+
+  const handleEnquiry = (property: typeof properties[0]) => {
+    setEnquiryProperty(property);
+    setShowEnquiryForm(true);
+  };
+
+  const handleSubmitEnquiry = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Enquiry submitted:", { ...formData, property: enquiryProperty?.name });
+    setShowEnquiryForm(false);
+    setFormData({ name: "", email: "", phone: "", message: "" });
+    alert("Thank you! We'll contact you soon.");
+  };
 
   return (
     <div className="min-h-screen bg-cream-light">
@@ -294,8 +318,15 @@ export default function Properties() {
                     <span className="text-3xl font-bold text-gold tracking-tight">
                       {formatPrice(property.price)}
                     </span>
-                    <Button size="sm" className="bg-navy hover:bg-navy-light text-cream">
-                      Inquire
+                    <Button 
+                      size="sm" 
+                      className="bg-navy hover:bg-navy-light text-cream"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleEnquiry(property);
+                      }}
+                    >
+                      Quote Now
                     </Button>
                   </div>
                 </div>
@@ -410,14 +441,147 @@ export default function Properties() {
                   </p>
                 </div>
                 <div className="flex gap-3">
-                  <Button size="lg" variant="outline" className="border-2 border-navy text-navy hover:bg-navy hover:text-cream">
-                    Schedule Visit
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-2 border-navy text-navy hover:bg-navy hover:text-cream"
+                    onClick={() => handleEnquiry(selectedProperty)}
+                  >
+                    Quote Now
                   </Button>
                   <Button size="lg" className="bg-gold hover:bg-gold-light text-navy">
                     Contact Agent
                   </Button>
                 </div>
               </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Enquiry Form Modal */}
+      {showEnquiryForm && enquiryProperty && (
+        <div 
+          className="fixed inset-0 bg-navy/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setShowEnquiryForm(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="font-display text-3xl font-bold text-navy mb-2">
+                    Property Enquiry
+                  </h2>
+                  <p className="text-navy/60">
+                    Get a quote for {enquiryProperty.name}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowEnquiryForm(false)}
+                  className="bg-cream rounded-full p-2 hover:bg-navy/10 transition-colors"
+                >
+                  <X className="w-6 h-6 text-navy" />
+                </button>
+              </div>
+
+              <div className="mb-6 p-4 bg-cream-light rounded-xl">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={enquiryProperty.image}
+                    alt={enquiryProperty.name}
+                    className="w-24 h-24 object-cover rounded-lg"
+                  />
+                  <div>
+                    <h3 className="font-bold text-navy text-lg">{enquiryProperty.name}</h3>
+                    <p className="text-navy/60 text-sm">{enquiryProperty.location}</p>
+                    <p className="text-gold font-bold text-xl mt-1">
+                      {formatPrice(enquiryProperty.price)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmitEnquiry} className="space-y-6">
+                <div>
+                  <Label htmlFor="name" className="text-navy font-semibold">
+                    Full Name *
+                  </Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="mt-2 border-navy/20 focus:border-gold"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email" className="text-navy font-semibold">
+                    Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="mt-2 border-navy/20 focus:border-gold"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone" className="text-navy font-semibold">
+                    Phone Number *
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="mt-2 border-navy/20 focus:border-gold"
+                    placeholder="+91 XXXXX XXXXX"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="message" className="text-navy font-semibold">
+                    Message (Optional)
+                  </Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="mt-2 border-navy/20 focus:border-gold min-h-[120px]"
+                    placeholder="Tell us about your requirements..."
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="flex-1 border-2 border-navy text-navy hover:bg-navy hover:text-cream"
+                    onClick={() => setShowEnquiryForm(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="flex-1 bg-gold hover:bg-gold-light text-navy font-semibold"
+                  >
+                    Submit Enquiry
+                  </Button>
+                </div>
+              </form>
             </div>
           </motion.div>
         </div>
