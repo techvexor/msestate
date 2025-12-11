@@ -1,56 +1,38 @@
 import { motion } from "framer-motion";
-import { MapPin, Bed, Bath, Maximize, ArrowRight } from "lucide-react";
+import { MapPin, Bed, Bath, Maximize, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const properties = [
   {
     id: 1,
-    name: "Skyline Residences",
-    location: "Sector 150, Noida",
-    price: 12000000,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=90",
-    beds: 3,
-    baths: 3,
-    area: "1850 sq.ft",
-
-    featured: true,
-  },
-  {
-    id: 2,
-    name: "Green Valley Villas",
-    location: "Greater Noida West",
-    price: 25000000,
-    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=90",
-    beds: 4,
-    baths: 4,
-    area: "3200 sq.ft",
-
-    featured: false,
-  },
-  {
-    id: 3,
-    name: "Urban Heights",
-    location: "Sector 137, Noida",
-    price: 9500000,
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=90",
-    beds: 2,
-    baths: 2,
-    area: "1200 sq.ft",
-
-    featured: false,
-  },
-  {
-    id: 4,
     name: "Prestige Towers",
+    type: "APARTMENT",
     location: "Sector 62, Noida",
     price: 18000000,
+    description: "Premium apartments with world-class amenities and facilities.",
     image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=90",
     beds: 3,
     baths: 3,
     area: "2100 sq.ft",
-
-    featured: false,
+  },
+  {
+    id: 2,
+    name: "Royal Enclave",
+    type: "VILLA",
+    location: "Sector 75, Noida",
+    price: 35000000,
+    description: "Ultra-luxury villas with premium finishes and exclusive amenities.",
+    image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=90",
+    beds: 5,
+    baths: 5,
+    area: "4500 sq.ft",
   },
 ];
 
@@ -64,6 +46,22 @@ const formatPrice = (price: number): string => {
 };
 
 export default function FeaturedProperties() {
+  const navigate = useNavigate();
+  const [selectedProperty, setSelectedProperty] = useState<typeof properties[0] | null>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Quote request for:", selectedProperty?.name, formData);
+    // Handle form submission here
+    setFormData({ name: "", email: "", phone: "", message: "" });
+  };
+
   return (
     <section className="py-32 px-6 md:px-12 bg-cream noise-texture">
       <div className="max-w-7xl mx-auto">
@@ -83,7 +81,7 @@ export default function FeaturedProperties() {
         </motion.div>
 
         {/* Property Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {properties.map((property, index) => (
             <motion.div
               key={property.id}
@@ -91,69 +89,132 @@ export default function FeaturedProperties() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              className="group relative overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-all duration-500"
             >
               {/* Image */}
               <div className="relative overflow-hidden h-64">
                 <img
                   src={property.image}
                   alt={property.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
-                
-                {/* Overlay Content */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button
-                    variant="outline"
-                    className="border-2 border-cream text-cream hover:bg-cream hover:text-navy w-fit"
-                  >
-                    View Details
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </div>
-
-
-
-                {/* Featured Badge */}
-                {property.featured && (
-                  <Badge className="absolute top-4 left-4 bg-navy text-cream font-semibold text-xs">
-                    Featured
-                  </Badge>
-                )}
               </div>
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="font-serif text-2xl font-bold text-navy mb-2 tracking-tight">
-                  {property.name}
-                </h3>
-                <div className="flex items-center text-navy/60 mb-4">
-                  <MapPin className="w-4 h-4 mr-1 text-gold" />
-                  <span className="text-sm font-medium">{property.location}</span>
+                {/* Type Badge */}
+                <div className="flex items-center gap-2 mb-3">
+                  <Home className="w-4 h-4 text-gold" />
+                  <span className="text-xs font-semibold text-gold uppercase tracking-wider">
+                    {property.type}
+                  </span>
                 </div>
 
+                <h3 className="font-serif text-2xl font-bold text-navy mb-2">
+                  {property.name}
+                </h3>
+                
+                <div className="flex items-center text-navy/60 mb-3">
+                  <MapPin className="w-4 h-4 mr-1" />
+                  <span className="text-sm">{property.location}</span>
+                </div>
+
+                <p className="text-sm text-navy/70 mb-4 leading-relaxed">
+                  {property.description}
+                </p>
+
                 {/* Specs */}
-                <div className="flex items-center gap-4 mb-4 text-sm text-navy/70 font-medium">
+                <div className="flex items-center gap-4 mb-4 text-sm text-navy/70">
                   <div className="flex items-center gap-1">
-                    <Bed className="w-4 h-4 text-navy/50" />
+                    <Bed className="w-4 h-4" />
                     <span>{property.beds} Beds</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Bath className="w-4 h-4 text-navy/50" />
+                    <Bath className="w-4 h-4" />
                     <span>{property.baths} Baths</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Maximize className="w-4 h-4 text-navy/50" />
+                    <Maximize className="w-4 h-4" />
                     <span>{property.area}</span>
                   </div>
                 </div>
 
-                {/* Price */}
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl font-bold text-gold tracking-tight">
+                {/* Price and Quote Button */}
+                <div className="flex items-center justify-between pt-4 border-t border-navy/10">
+                  <span className="text-3xl font-bold text-gold">
                     {formatPrice(property.price)}
                   </span>
+                  
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        className="bg-navy text-cream hover:bg-navy/90 font-semibold"
+                        onClick={() => setSelectedProperty(property)}
+                      >
+                        Quote Now
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[500px]">
+                      <DialogHeader>
+                        <DialogTitle className="font-serif text-2xl text-navy">
+                          Request a Quote
+                        </DialogTitle>
+                        <DialogDescription>
+                          Get a personalized quote for {property.name}
+                        </DialogDescription>
+                      </DialogHeader>
+                      <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Full Name</Label>
+                          <Input
+                            id="name"
+                            placeholder="Enter your name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">Phone Number</Label>
+                          <Input
+                            id="phone"
+                            type="tel"
+                            placeholder="Enter your phone number"
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            required
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="message">Message (Optional)</Label>
+                          <Textarea
+                            id="message"
+                            placeholder="Any specific requirements or questions?"
+                            value={formData.message}
+                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            rows={4}
+                          />
+                        </div>
+                        <Button
+                          type="submit"
+                          className="w-full bg-navy text-cream hover:bg-navy/90"
+                        >
+                          Submit Quote Request
+                        </Button>
+                      </form>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </motion.div>
@@ -171,9 +232,9 @@ export default function FeaturedProperties() {
             size="lg"
             variant="outline"
             className="border-2 border-navy text-navy hover:bg-navy hover:text-cream font-semibold px-8"
+            onClick={() => navigate('/properties')}
           >
             View All Properties
-            <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </motion.div>
       </div>
