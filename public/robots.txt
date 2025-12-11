@@ -1,0 +1,20 @@
+# MS Estate - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://msestate.in/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+
+# Allow search engines to crawl all pages
+Allow: /properties
+Allow: /services
+Allow: /about
+Allow: /contact
+
+# Crawl-delay for better server performance
+Crawl-delay: 1

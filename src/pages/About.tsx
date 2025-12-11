@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import TrustIndicators from "@/components/TrustIndicators";
 import Testimonials from "@/components/Testimonials";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { SEO, seoConfig } from "@/utils/seo";
 import { motion } from "framer-motion";
 import { Award, Users, Building, Clock } from "lucide-react";
 
@@ -39,6 +40,12 @@ const team = [
 export default function About() {
   return (
     <div className="min-h-screen bg-cream-light">
+      <SEO
+        title={seoConfig.about.title}
+        description={seoConfig.about.description}
+        keywords={seoConfig.about.keywords}
+        canonical={seoConfig.about.canonical}
+      />
       <Navigation />
       
       {/* Hero Section */}

@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { SEO, seoConfig } from "@/utils/seo";
 import { motion } from "framer-motion";
 import { MapPin, Bed, Bath, Maximize, ArrowRight, Building2, Home, Calendar, CheckCircle2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,6 +24,7 @@ const properties = [
     baths: 3,
     area: "1850 sq.ft",
     type: "Apartment",
+    category: "Residential",
     status: "Ready to Move",
     featured: true,
     amenities: ["Swimming Pool", "Gym", "Parking", "Security"],
@@ -38,6 +40,7 @@ const properties = [
     baths: 4,
     area: "3200 sq.ft",
     type: "Villa",
+    category: "Residential",
     status: "Under Construction",
     featured: false,
     amenities: ["Private Garden", "Club House", "Kids Play Area", "24/7 Security"],
@@ -53,6 +56,7 @@ const properties = [
     baths: 2,
     area: "1200 sq.ft",
     type: "Apartment",
+    category: "Residential",
     status: "Ready to Move",
     featured: false,
     amenities: ["Gym", "Parking", "Power Backup", "Lift"],
@@ -68,6 +72,7 @@ const properties = [
     baths: 3,
     area: "2100 sq.ft",
     type: "Apartment",
+    category: "Residential",
     status: "Ready to Move",
     featured: false,
     amenities: ["Swimming Pool", "Gym", "Club House", "Parking"],
@@ -83,6 +88,7 @@ const properties = [
     baths: 5,
     area: "4500 sq.ft",
     type: "Villa",
+    category: "Residential",
     status: "Ready to Move",
     featured: true,
     amenities: ["Private Pool", "Home Theater", "Servant Quarter", "Landscaped Garden"],
@@ -98,6 +104,7 @@ const properties = [
     baths: 2,
     area: "1100 sq.ft",
     type: "Apartment",
+    category: "Residential",
     status: "Under Construction",
     featured: false,
     amenities: ["Metro Connectivity", "Gym", "Parking", "Security"],
@@ -113,6 +120,7 @@ const properties = [
     baths: 3,
     area: "1950 sq.ft",
     type: "Apartment",
+    category: "Residential",
     status: "Ready to Move",
     featured: false,
     amenities: ["Lake View", "Jogging Track", "Gym", "Club House"],
@@ -128,6 +136,7 @@ const properties = [
     baths: 2,
     area: "1650 sq.ft",
     type: "Apartment",
+    category: "Residential",
     status: "Under Construction",
     featured: false,
     amenities: ["IT Park Proximity", "Gym", "Parking", "Power Backup"],
@@ -143,10 +152,59 @@ const properties = [
     baths: 4,
     area: "3500 sq.ft",
     type: "Villa",
+    category: "Residential",
     status: "Ready to Move",
     featured: true,
     amenities: ["Large Garden", "Private Parking", "Security", "Club House"],
     description: "Elegant villas with expansive gardens and premium lifestyle amenities."
+  },
+  {
+    id: 10,
+    name: "Business Hub Plaza",
+    location: "Sector 18, Noida",
+    price: 45000000,
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=90",
+    beds: 0,
+    baths: 0,
+    area: "5000 sq.ft",
+    type: "Commercial",
+    category: "Commercial",
+    status: "Ready to Move",
+    featured: true,
+    amenities: ["Prime Location", "High Footfall", "Parking", "24/7 Security"],
+    description: "Premium commercial space in the heart of Noida's business district."
+  },
+  {
+    id: 11,
+    name: "Corporate Tower",
+    location: "Sector 16, Noida",
+    price: 65000000,
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=90",
+    beds: 0,
+    baths: 0,
+    area: "8000 sq.ft",
+    type: "Commercial",
+    category: "Commercial",
+    status: "Ready to Move",
+    featured: false,
+    amenities: ["Modern Infrastructure", "Conference Rooms", "Cafeteria", "Parking"],
+    description: "State-of-the-art office space with world-class amenities."
+  },
+  {
+    id: 12,
+    name: "Retail Paradise",
+    location: "Greater Noida",
+    price: 35000000,
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=90",
+    beds: 0,
+    baths: 0,
+    area: "3500 sq.ft",
+    type: "Commercial",
+    category: "Commercial",
+    status: "Under Construction",
+    featured: false,
+    amenities: ["High Visibility", "Ample Parking", "Food Court", "Security"],
+    description: "Prime retail space in a bustling commercial complex."
   },
 ];
 
@@ -173,6 +231,10 @@ export default function Properties() {
 
   const filteredProperties = selectedType === "all" 
     ? properties 
+    : selectedType === "residential"
+    ? properties.filter(p => p.category === "Residential")
+    : selectedType === "commercial"
+    ? properties.filter(p => p.category === "Commercial")
     : properties.filter(p => p.type.toLowerCase() === selectedType);
 
   const handleEnquiry = (property: typeof properties[0]) => {
@@ -190,6 +252,33 @@ export default function Properties() {
 
   return (
     <div className="min-h-screen bg-cream-light">
+      <SEO
+        title={seoConfig.properties.title}
+        description={seoConfig.properties.description}
+        keywords={seoConfig.properties.keywords}
+        canonical={seoConfig.properties.canonical}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": filteredProperties.slice(0, 10).map((property, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "RealEstateListing",
+              "name": property.name,
+              "description": property.description,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": property.location,
+                "addressRegion": "Uttar Pradesh",
+                "addressCountry": "IN"
+              },
+              "price": property.price,
+              "priceCurrency": "INR"
+            }
+          }))
+        }}
+      />
       <Navigation />
       
       {/* Hero Section */}
@@ -215,10 +304,12 @@ export default function Properties() {
       <section className="py-8 bg-white border-b border-navy/10">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <Tabs value={selectedType} onValueChange={setSelectedType} className="w-full">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-3">
+            <TabsList className="grid w-full max-w-3xl mx-auto grid-cols-5">
               <TabsTrigger value="all">All Properties</TabsTrigger>
               <TabsTrigger value="apartment">Apartments</TabsTrigger>
               <TabsTrigger value="villa">Villas</TabsTrigger>
+              <TabsTrigger value="residential">Residential</TabsTrigger>
+              <TabsTrigger value="commercial">Commercial</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
@@ -299,14 +390,18 @@ export default function Properties() {
 
                   {/* Specs */}
                   <div className="flex items-center gap-4 mb-4 text-sm text-navy/70 font-medium">
-                    <div className="flex items-center gap-1">
-                      <Bed className="w-4 h-4 text-navy/50" />
-                      <span>{property.beds} Beds</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Bath className="w-4 h-4 text-navy/50" />
-                      <span>{property.baths} Baths</span>
-                    </div>
+                    {property.beds > 0 && (
+                      <div className="flex items-center gap-1">
+                        <Bed className="w-4 h-4 text-navy/50" />
+                        <span>{property.beds} Beds</span>
+                      </div>
+                    )}
+                    {property.baths > 0 && (
+                      <div className="flex items-center gap-1">
+                        <Bath className="w-4 h-4 text-navy/50" />
+                        <span>{property.baths} Baths</span>
+                      </div>
+                    )}
                     <div className="flex items-center gap-1">
                       <Maximize className="w-4 h-4 text-navy/50" />
                       <span>{property.area}</span>
@@ -404,16 +499,20 @@ export default function Properties() {
               </p>
 
               <div className="grid grid-cols-3 gap-6 mb-6 p-6 bg-cream-light rounded-xl">
-                <div className="text-center">
-                  <Bed className="w-8 h-8 text-gold mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-navy">{selectedProperty.beds}</p>
-                  <p className="text-sm text-navy/60">Bedrooms</p>
-                </div>
-                <div className="text-center">
-                  <Bath className="w-8 h-8 text-gold mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-navy">{selectedProperty.baths}</p>
-                  <p className="text-sm text-navy/60">Bathrooms</p>
-                </div>
+                {selectedProperty.beds > 0 && (
+                  <div className="text-center">
+                    <Bed className="w-8 h-8 text-gold mx-auto mb-2" />
+                    <p className="text-2xl font-bold text-navy">{selectedProperty.beds}</p>
+                    <p className="text-sm text-navy/60">Bedrooms</p>
+                  </div>
+                )}
+                {selectedProperty.baths > 0 && (
+                  <div className="text-center">
+                    <Bath className="w-8 h-8 text-gold mx-auto mb-2" />
+                    <p className="text-2xl font-bold text-navy">{selectedProperty.baths}</p>
+                    <p className="text-sm text-navy/60">Bathrooms</p>
+                  </div>
+                )}
                 <div className="text-center">
                   <Maximize className="w-8 h-8 text-gold mx-auto mb-2" />
                   <p className="text-2xl font-bold text-navy">{selectedProperty.area}</p>
