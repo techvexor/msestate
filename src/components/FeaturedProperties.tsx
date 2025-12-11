@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
 import { MapPin, Bed, Bath, Maximize, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import QuoteForm from "@/components/QuoteForm";
 
 const properties = [
   {
@@ -47,19 +43,12 @@ const formatPrice = (price: number): string => {
 
 export default function FeaturedProperties() {
   const navigate = useNavigate();
+  const [showQuoteForm, setShowQuoteForm] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState<typeof properties[0] | null>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: ""
-  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Quote request for:", selectedProperty?.name, formData);
-    // Handle form submission here
-    setFormData({ name: "", email: "", phone: "", message: "" });
+  const handleQuoteClick = (property: typeof properties[0]) => {
+    setSelectedProperty(property);
+    setShowQuoteForm(true);
   };
 
   return (
@@ -145,76 +134,12 @@ export default function FeaturedProperties() {
                     {formatPrice(property.price)}
                   </span>
                   
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        className="bg-navy text-cream hover:bg-navy/90 font-semibold"
-                        onClick={() => setSelectedProperty(property)}
-                      >
-                        Quote Now
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px]">
-                      <DialogHeader>
-                        <DialogTitle className="font-serif text-2xl text-navy">
-                          Request a Quote
-                        </DialogTitle>
-                        <DialogDescription>
-                          Get a personalized quote for {property.name}
-                        </DialogDescription>
-                      </DialogHeader>
-                      <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Full Name</Label>
-                          <Input
-                            id="name"
-                            placeholder="Enter your name"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="Enter your email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="phone">Phone Number</Label>
-                          <Input
-                            id="phone"
-                            type="tel"
-                            placeholder="Enter your phone number"
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            required
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="message">Message (Optional)</Label>
-                          <Textarea
-                            id="message"
-                            placeholder="Any specific requirements or questions?"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            rows={4}
-                          />
-                        </div>
-                        <Button
-                          type="submit"
-                          className="w-full bg-navy text-cream hover:bg-navy/90"
-                        >
-                          Submit Quote Request
-                        </Button>
-                      </form>
-                    </DialogContent>
-                  </Dialog>
+                  <Button
+                    className="bg-navy text-cream hover:bg-navy/90 font-semibold"
+                    onClick={() => handleQuoteClick(property)}
+                  >
+                    Quote Now
+                  </Button>
                 </div>
               </div>
             </motion.div>
@@ -238,6 +163,20 @@ export default function FeaturedProperties() {
           </Button>
         </motion.div>
       </div>
+
+      {/* Quote Form Modal */}
+      {showQuoteForm && selectedProperty && (
+        <QuoteForm
+          property={{
+            name: selectedProperty.name,
+            location: selectedProperty.location,
+            price: formatPrice(selectedProperty.price),
+            image: selectedProperty.image,
+          }}
+          source="Featured Properties"
+          onClose={() => setShowQuoteForm(false)}
+        />
+      )}
     </section>
   );
 }
