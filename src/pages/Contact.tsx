@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import LocationMap from "@/components/LocationMap";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { SEO, seoConfig } from "@/utils/seo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -55,6 +56,30 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-cream-light">
+      <SEO
+        title={seoConfig.contact.title}
+        description={seoConfig.contact.description}
+        keywords={seoConfig.contact.keywords}
+        canonical={seoConfig.contact.canonical}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "mainEntity": {
+            "@type": "RealEstateAgent",
+            "name": "MS Estate",
+            "telephone": "+91-9999091927",
+            "email": "info@msestate.in",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Sector 90",
+              "addressLocality": "Noida",
+              "addressRegion": "Uttar Pradesh",
+              "postalCode": "201301",
+              "addressCountry": "IN"
+            }
+          }
+        }}
+      />
       <Navigation />
       
       {/* Hero Section */}

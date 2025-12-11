@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ServicePillars from "@/components/ServicePillars";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { SEO, seoConfig } from "@/utils/seo";
 import { motion } from "framer-motion";
 import { Home, Key, TrendingUp, FileText, Users, Shield } from "lucide-react";
 
@@ -39,8 +40,41 @@ const additionalServices = [
 ];
 
 export default function Services() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Real Estate Services",
+    "provider": {
+      "@type": "RealEstateAgent",
+      "name": "MS Estate"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Noida, Greater Noida, NCR"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Real Estate Services",
+      "itemListElement": additionalServices.map(service => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.title,
+          "description": service.description
+        }
+      }))
+    }
+  };
+
   return (
     <div className="min-h-screen bg-cream-light">
+      <SEO
+        title={seoConfig.services.title}
+        description={seoConfig.services.description}
+        keywords={seoConfig.services.keywords}
+        canonical={seoConfig.services.canonical}
+        structuredData={structuredData}
+      />
       <Navigation />
       
       {/* Hero Section */}
