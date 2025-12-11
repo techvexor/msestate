@@ -54,6 +54,10 @@ module.exports = {
         navy: {
           DEFAULT: "#0A1828",
           light: "#1a2838",
+          dark: "#050d16",
+          deep: "#071422",
+          medium: "#0f2540",
+          accent: "#1a3a5c",
         },
         cream: {
           DEFAULT: "#F8F6F0",
