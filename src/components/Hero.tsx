@@ -90,7 +90,7 @@ export default function Hero() {
       />
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+      <div className="absolute bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 z-20 flex gap-2 sm:gap-3">
         {heroImages.map((_, index) => (
           <button
             key={index}
@@ -109,20 +109,20 @@ export default function Hero() {
       <button
         onClick={goToPrevious}
         type="button"
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-navy-medium/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/80 hover:bg-navy-accent/80 hover:text-gold hover:border-gold/30 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(201,169,110,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy active:scale-100 appearance-none group"
+        className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-navy-medium/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/80 hover:bg-navy-accent/80 hover:text-gold hover:border-gold/30 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(201,169,110,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy active:scale-100 appearance-none group"
         aria-label="Previous slide"
         style={{ WebkitAppearance: 'none', WebkitTapHighlightColor: 'transparent' }}
       >
-        <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-0.5 transition-transform" />
       </button>
       <button
         onClick={goToNext}
         type="button"
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-navy-medium/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/80 hover:bg-navy-accent/80 hover:text-gold hover:border-gold/30 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(201,169,110,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy active:scale-100 appearance-none group"
+        className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-navy-medium/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/80 hover:bg-navy-accent/80 hover:text-gold hover:border-gold/30 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(201,169,110,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-navy active:scale-100 appearance-none group"
         aria-label="Next slide"
         style={{ WebkitAppearance: 'none', WebkitTapHighlightColor: 'transparent' }}
       >
-        <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
+        <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-0.5 transition-transform" />
       </button>
 
       {/* Content */}
@@ -166,7 +166,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.5 }}
-            className="text-center text-lg md:text-xl lg:text-2xl mb-10 font-medium tracking-wide max-w-2xl"
+            className="text-center text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-10 font-medium tracking-wide max-w-2xl px-4"
           >
             <span className="bg-gradient-to-r from-white/60 via-white/90 to-white/60 bg-clip-text text-transparent">
               {heroImages[currentIndex].tagline}

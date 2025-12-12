@@ -52,7 +52,7 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.label}
@@ -67,15 +67,15 @@ export default function Navigation() {
           </div>
 
           {/* Search Box & CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <div className="relative">
+          <div className="hidden lg:flex items-center gap-3 xl:gap-4">
+            <div className="relative hidden xl:block">
               <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${
                 isScrolled ? "text-navy/50" : "text-cream/50"
               }`} />
               <Input
                 type="search"
                 placeholder="Search properties..."
-                className={`pl-10 w-64 transition-all duration-300 ${
+                className={`pl-10 w-48 xl:w-64 transition-all duration-300 ${
                   isScrolled
                     ? "bg-white border-navy/20 text-navy placeholder:text-navy/50"
                     : "bg-white/10 backdrop-blur-sm border-cream/30 text-cream placeholder:text-cream/70"
@@ -99,7 +99,7 @@ export default function Navigation() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`md:hidden p-2 transition-colors ${
+            className={`lg:hidden p-2 transition-colors ${
               isScrolled ? "text-navy" : "text-cream"
             }`}
           >
@@ -116,7 +116,7 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-cream-light md:hidden"
+            className="fixed inset-0 z-40 bg-cream-light lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8 p-6">
               {navItems.map((item, index) => (
