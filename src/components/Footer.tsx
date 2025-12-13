@@ -90,10 +90,10 @@ export default function Footer() {
             <div className="flex gap-3">
               {[
                 { icon: Facebook, href: "#", label: "Facebook" },
-                { icon: Instagram, href: "#", label: "Instagram" },
+                { icon: Instagram, href: "https://www.instagram.com/msestates.in", label: "Instagram" },
                 { icon: Linkedin, href: "#", label: "LinkedIn" },
-                { icon: Twitter, href: "#", label: "Twitter" },
-                { icon: Youtube, href: "#", label: "YouTube" },
+                { icon: Twitter, href: "https://x.com/ms__estates", label: "Twitter" },
+                { icon: Youtube, href: "https://www.youtube.com/@ms_estates", label: "YouTube" },
               ].map((social, index) => (
                 <motion.a
                   key={social.label}
